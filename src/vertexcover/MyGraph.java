@@ -3,128 +3,121 @@ package vertexcover;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class MyGraph implements Graph {
     Map<Integer, Set<Integer>> nodes;
+    int edgeCount, vertCount;
 
     public MyGraph() {
         this.nodes = new HashMap<>();
+        this.edgeCount = 0;
+        this.vertCount = 0;
     }
 
     public MyGraph(String filename) throws FileNotFoundException {
         this.nodes = new HashMap<>();
+        this.edgeCount = 0;
+        this.vertCount = 0;
 
         BufferedReader br = new BufferedReader(new FileReader(filename));
         Object[] lines = br.lines().toArray();
         for (Object line : lines) {
             /* empty line */
             if (((String) line).trim().equals("")) continue;
-            String[] split = ((String) line).split(" ");
+            String[] split = ((String) line).split("\t|\s+");
             int first = Integer.parseInt(split[0]), second = Integer.parseInt(split[1]);
+
+            if (!contains(first))
+                addVertex(first);
+            if (!contains(second))
+                addVertex(second);
 
             addEdge(first, second);
         }
     }
 
-    @java.lang.Override
+    @Override
     public void addVertex(Integer v) {
-        nodes.putIfAbsent(v, new HashSet<Integer>());
+        if (nodes.putIfAbsent(v, new HashSet<Integer>()) == null)
+            vertCount++;
     }
 
-    @java.lang.Override
+    @Override
     public void addEdge(Integer v, Integer w) {
-        /* make sure vertices and adjacency lists are present */
-        if (!contains(v))
-            addVertex(v);
-        if (!contains(w))
-            addVertex(w);
-
-        /* no edges to self allowed */
-        if (v.compareTo(w) == 0)
-            return;
-
         nodes.get(v).add(w);
         nodes.get(w).add(v);
+        edgeCount++;
     }
 
-    @java.lang.Override
+    @Override
     public void deleteVertex(Integer v) {
         /* because undirected graph */
         Set<Integer> pointsToVSet = nodes.get(v);
         for (Integer i : pointsToVSet) {
             nodes.get(i).remove(v);
+            edgeCount--;
         }
 
         nodes.remove(v);
+        vertCount--;
     }
 
-    @java.lang.Override
+    @Override
     public void deleteEdge(Integer u, Integer v) {
-        if (!contains(u) || !contains(v))
-            return;
-
         nodes.get(u).remove(v);
         nodes.get(v).remove(u);
+        edgeCount--;
     }
 
-    @java.lang.Override
+    @Override
     public boolean contains(Integer v) {
         return nodes.containsKey(v);
     }
 
-    @java.lang.Override
+    @Override
     public int degree(Integer v) {
-        if (!contains(v))
-            return 0;
-
         return nodes.get(v).size();
     }
 
-    @java.lang.Override
+    @Override
     public boolean adjacent(Integer v, Integer w) {
-        if (!contains(v))
-            return false;
-
         return nodes.get(v).contains(w);
     }
 
-    @java.lang.Override
+    @Override
     public Graph getCopy() {
         MyGraph newGraph = new MyGraph();
         for (Map.Entry<Integer, Set<Integer>> entry : nodes.entrySet()) {
-            Set<Integer> newSet = new HashSet<>(entry.getValue());
+            Set<Integer> newSet = (Set<Integer>)(((HashSet<Integer>)entry.getValue()).clone());
             newGraph.nodes.put(entry.getKey(), newSet);
         }
+
+        newGraph.edgeCount = edgeCount;
+        newGraph.vertCount = vertCount;
 
         return newGraph;
     }
 
-    @java.lang.Override
+    @Override
     public Set<Integer> getNeighbors(Integer v) {
-        if (!contains(v))
-            return null;
-
         return nodes.get(v);
     }
 
-    @java.lang.Override
+    @Override
     public int size() {
-        return nodes.size();
+        return vertCount;
     }
 
-    @java.lang.Override
+    @Override
     public int getEdgeCount() {
-        int edgeCount = 0;
-        for (Set<Integer> set : nodes.values()) {
-            edgeCount += set.size();
-        }
-
-        /* assuming a correctly constructed graph */
-        return edgeCount / 2;
+        return edgeCount;
     }
 
-    @java.lang.Override
+    @Override
     public Set<Integer> getVertices() {
         return nodes.keySet();
     }
