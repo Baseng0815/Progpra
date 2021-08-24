@@ -13,7 +13,7 @@ public class Main {
         };
 
         SearchTree i = new SearchTree();
-        Graph g = new MyGraph("Aufgaben/Data/" + files[2]);
+        Graph g = new MyGraph("Aufgaben/Data/" + files[10]);
         long start = System.currentTimeMillis();
         int k = i.solve(g);
         long end = System.currentTimeMillis();

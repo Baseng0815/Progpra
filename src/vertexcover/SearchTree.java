@@ -97,26 +97,18 @@ public class SearchTree {
     }
 
     private void removeHighDeg(Instance instance) {
-        boolean abort;
-        do {
-            abort = true;
-
-            Object[] vertices = instance.graph.getVertices().toArray();
-            for (Object a : vertices) {
-                Integer v = (Integer) a;
-                if (instance.graph.degree(v) > instance.k) {
-                    removedVertices.addFirst(v);
-                    for (Integer neighbor : instance.graph.getNeighbors(v)) {
-                        removedEdges.addFirst(new Pair(v, neighbor));
-                    }
-                    instance.graph.deleteVertex(v);
-
-                    instance.k--;
-                    abort = false;
-                    break;
+        Object[] vertices = instance.graph.getVertices().toArray();
+        for (Object a : vertices) {
+            Integer v = (Integer) a;
+            if (instance.graph.degree(v) > instance.k) {
+                removedVertices.addFirst(v);
+                for (Integer neighbor : instance.graph.getNeighbors(v)) {
+                    removedEdges.addFirst(new Pair(v, neighbor));
                 }
+                instance.graph.deleteVertex(v);
+                instance.k--;
             }
-        } while (!abort);
+        }
     }
 
     private Integer getBestNeighbor(Set<Integer> neighbors, Graph g) {
