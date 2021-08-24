@@ -18,6 +18,6 @@ public class Main {
         int k = i.solve(g);
         long end = System.currentTimeMillis();
         long dtMs = end - start;
-        System.out.printf("|V|=%d, |E|=%d, k=%d (took %dms)\n", g.getVertices().size(), g.getEdgeCount(), k, dtMs);
+        System.out.printf("|V|=%d, |E|=%d, k=%d (took %dms)\n", g.size(), g.getEdgeCount(), k, dtMs);
     }
 }
