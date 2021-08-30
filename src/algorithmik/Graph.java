@@ -1,4 +1,4 @@
-package vertexcover;
+package algorithmik;
 
 import java.util.Set;
 /**

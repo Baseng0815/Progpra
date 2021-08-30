@@ -1,4 +1,4 @@
-package vertexcover;
+package algorithmik;
 
 import java.io.FileNotFoundException;
 
@@ -12,8 +12,8 @@ public class Main {
                 "outdolphins.sec", "outucidata-zachary.sec", "sample2"
         };
 
-        SearchTree i = new SearchTree();
-        Graph g = new MyGraph("Aufgaben/Data/" + files[10]);
+        Graph g = new MyGraph("Aufgaben/Data/" + files[3]);
+        SearchTree i = new SearchTree(g);
         long start = System.currentTimeMillis();
         int k = i.solve(g);
         long end = System.currentTimeMillis();
