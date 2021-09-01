@@ -1,0 +1,34 @@
+Corpus information with stopwords included
+---------------------------------
+Tokens      432484
+Vocabulary  56163
+
+Top 10 most frequent tokens:
+.: 24268
+,: 21418
+der: 11210
+die: 9999
+und: 7191
+in: 6488
+den: 3974
+von: 3571
+zu: 3483
+:: 3353
+
+Corpus information after removing stopwords
+---------------------------------
+Tokens      288436
+Vocabulary  55944
+
+Top 10 most frequent tokens:
+.: 24268
+,: 21418
+:: 3353
+–: 2582
+Die: 2520
+Der: 1323
+Das: 1165
+;: 1161
+In: 771
+sei: 764
+
