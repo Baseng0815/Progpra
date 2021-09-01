@@ -43,7 +43,7 @@ public class TextClient {
                 String recv = socketReader.readLine();
                 if (recv == null) {
                     /* end of stream has been reached */
-                    System.out.printf("End of stream has been reached.\n");
+                    System.out.println("End of stream has been reached.");
                     clientSocket.close();
                     break;
                 }
@@ -80,7 +80,7 @@ public class TextClient {
         //final String host = "dsgw.mathematik.uni-marburg.de";
         //final int port = 32823;
         final String host = "localhost";
-        final int port = 27015;
+        final int port = 5712;
 
         TextClient client = new TextClient(host, port);
     }
