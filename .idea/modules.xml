@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Progpra.iml" filepath="$PROJECT_DIR$/Progpra.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Aufgaben/Softwaretechnik/ga.framework.iml" filepath="$PROJECT_DIR$/Aufgaben/Softwaretechnik/ga.framework.iml" />
     </modules>
   </component>
 </project>
